@@ -4,14 +4,18 @@
 import numpy as np
 import pylab as plt
 
+
+def convertEnthalpyToDistribution(E,k,T):
+        return(np.exp(-E/(k*T)))
+
 # Helper-function, returns True if A is prime
 def is_prime(A):
-    return all(A % i for i in xrange(2, A))
+    return all(A % i for i in np.arange(2, A))
 
 # My rule for accepting or rejecting a suggested Monte-Carlo move
 # Return "True" to accpt move, or "False" to reject move
 def PrimeRule(stateThere):
-    if(is_prime(stateThere)):
+    if(is_prime(stateThere+1)):
         return(True)
     else:
         # Make a random number between 0 and 1
@@ -23,9 +27,22 @@ def PrimeRule(stateThere):
 
 # HERE YOU SHOULD DEFINE AND LATER USE A NEW, BETTER RULE FOR BOLTZMANN STATISTICS
 
+def MyRule(current_state, new_state):
+    if energies[new_state] - energies[current_state] < 0:
+        return(True)
+    else:
+        chance = np.random.rand()
+        if(chance>(5.0/6.0)):
+            return(True)
+        else:
+            return(False)
 
 
-
+def MyBetterRule(current_state, new_state):
+    if predictedDistribution[new_state] / predictedDistribution[current_state] > np.random.rand():
+        return(True)
+    else:
+        return(False)
 
 
 
@@ -40,7 +57,7 @@ def simulate_rule(stateEnergies,Nsteps):
 
         # Create an array to show were we were (which states we were in)
         # throughout the simulation
-        statesOverTime = np.zeros(Nsteps)
+        statesOverTime = np.zeros(Nsteps).astype(int)
 
         # Make the first state random by using the randint()-function
         statesOverTime[0] = np.random.randint(0,Nstates)
@@ -57,7 +74,8 @@ def simulate_rule(stateEnergies,Nsteps):
 
             #should we move?
             move=False
-            move=PrimeRule(newState)
+            #move=PrimeRule(newState)
+            move=MyBetterRule(currentState, newState)
             #move=BoltzmannRule()
 
             if(move):
@@ -82,7 +100,7 @@ def simulate_rule(stateEnergies,Nsteps):
 
 # Set the temperature and boltzmann constant in [eV/K] & [K]
 global k
-global T 
+global T
 global N_hops
 k = 8.6e-5
 T = 1000.0
@@ -113,5 +131,5 @@ output = simulate_rule(energies,N_hops)
 plt.legend()
 
 plt.figure()
-plt.plot(output[::(N_hops/200)]) # plot 200 points evenly spaced in the data
+plt.plot(output[::int(N_hops/200)]+1) # plot 200 points evenly spaced in the data
 plt.show()

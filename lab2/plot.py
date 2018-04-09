@@ -23,8 +23,9 @@ simulation_dist = np.array([float(i) for i in bins])
 #prediction_dist = ???
 
 #Group states into macrostates
-simulation_dist = np.array([sum(simulation_dist[0:3]),simulation_dist[3]])
-prediction_dist = np.array([np.exp(-(mstates[0] - T * np.log(3))/T), np.exp(-mstates[3]/T)])
+#simulation_dist = np.array([sum(simulation_dist[0:3]),simulation_dist[3]])
+#prediction_dist = np.array([np.exp(-(mstates[0] - T * np.log(3))/T), np.exp(-mstates[3]/T)])
+prediction_dist = np.exp(-mstates/T)
 
 #Normalize the distributions
 simulation_dist = simulation_dist / sum(simulation_dist)

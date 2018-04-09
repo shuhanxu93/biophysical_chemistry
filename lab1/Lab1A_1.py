@@ -9,13 +9,13 @@ import pylab as plt
 #  ---------------       SECTION I      ---------------
 #  --------------- CONVERSION FUNCTIONS ---------------
 
-# These are a few differnt conversion formulas, which 
-# 
+# These are a few differnt conversion formulas, which
+#
 #   --  converts the energy of a state to a number --
 #   --   describing the popoulation of that state  --
 #
-# try them out by changing which one is called on line 141 
-# 
+# try them out by changing which one is called on line 141
+#
 # also try changing the temperature setting on line 115
 # and the energies of the states on line 122
 
@@ -33,8 +33,8 @@ def convertEnthalpyToDistribution_4(E,k,T):
 	return(np.exp(-(E+10)/(k*T)))
 
 def convertEnthalpyToDistribution_5(E,k,T):
-	return(np.exp(-E/(k*(T-10))))
- 
+	return( np.exp(-E/(k*(T-10))))
+
 
 
 #  ---------------                     SECTION II                    ---------------
@@ -55,7 +55,7 @@ def sampleStates(stateEnergies, numberOfObservations, k, T):
     # Go through all state energies in the input
     for i in np.arange(Nstates):
         # calculate the boltzmann factor
-        Probs[i]            =  convertEnthalpyToDistribution_1(energies[i],k,T)
+        Probs[i]            =  convertEnthalpyToDistribution_2(energies[i],k,T)
         # And keep adding all boltzmann factors to the Partion Function
         PartitionFunction   = PartitionFunction + Probs[i]
 
@@ -84,7 +84,7 @@ def sampleStates(stateEnergies, numberOfObservations, k, T):
     # Boltzmann statistics to look.
 
     # Make an array to fill with state assignments
-    states = np.zeros(numberOfObservations)
+    states = np.zeros(numberOfObservations,dtype=int)
 
     # Make as many observations as required
     for i in np.arange(numberOfObservations):
@@ -100,7 +100,7 @@ def sampleStates(stateEnergies, numberOfObservations, k, T):
     # of them in histogram, so that the first state is "1", then "2", and so on.
     bins=np.arange(Nstates+1)+0.5
     y,dummy = plt.histogram(states+1, bins=bins, normed=True)
-    
+
     plt.bar(np.arange(len(energies))+0.9, y, width=0.4, fc='blue',alpha=0.5, label='sampled states')
 
 
@@ -112,17 +112,17 @@ def sampleStates(stateEnergies, numberOfObservations, k, T):
 
 # Set the temperature and boltzmann constant in [eV/K] & [K]
 k = 8.6e-5
-T = 10000000
+T = 10000
 
-# Create a number of states by defining the energy of each state, in 
-# this case three states (& their state-energies). 
+# Create a number of states by defining the energy of each state, in
+# this case three states (& their state-energies).
 #
-# NOTE: We never actually say explicitly that there are 3 states, but 
+# NOTE: We never actually say explicitly that there are 3 states, but
 # rather we just create a set where each entry is one possible state.
-energies=[-0.30, -0.30, -0.30]
-# Set the number of observations of the "system", i.e. how many times 
-# we check which of the above state the system is in. 
-steps = 50
+energies=[-0.30, -0.35, -0.25]
+# Set the number of observations of the "system", i.e. how many times
+# we check which of the above state the system is in.
+steps = 500
 
 
 
@@ -137,10 +137,10 @@ PartitionFunction = 0.0
 N=len(energies)
 for i in np.arange(N):
     # given the energy of state "i", what is the population of "i"? Below, use one of the functions
-    # energyToDistributionConversion_X() we defined above.  
+    # energyToDistributionConversion_X() we defined above.
     predictedDistribution[i]  =  convertEnthalpyToDistribution_2(energies[i],k,T)
     # And keep adding all pupoulations to the Partion Function, so that we can normalize it later
-    PartitionFunction = PartitionFunction + predictedDistribution[i] 
+    PartitionFunction = PartitionFunction + predictedDistribution[i]
 # Normalize by PartitionFunction ("Z" in Boltzmann statistics)
 predictedDistribution = predictedDistribution / PartitionFunction
 
@@ -159,9 +159,9 @@ fs.bar(np.arange(len(energies))+0.5, predictedDistribution, width=0.4, fc='red',
 
 
 # Now, randomize numbers to see if it matches the predicted distribution.
-# This uses the function "sampleStates" defined in the begining of the files, 
+# This uses the function "sampleStates" defined in the begining of the files,
 
-#sampleStates(energies,steps,k,T)
+sampleStates(energies,steps,k,T)
 
 fs.legend(loc='upper center')
 plt.show()
