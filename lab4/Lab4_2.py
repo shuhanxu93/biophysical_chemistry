@@ -1,6 +1,6 @@
 #!/usr/bin/python
-import matplotlib
-matplotlib.use("Qt4Agg")
+#import matplotlib
+#matplotlib.use("Qt4Agg")
 
 #import handy python modules
 import numpy as np
@@ -25,7 +25,7 @@ def randomWalk(stepLength, steps):
             positions[i+1] = -20 - (positions[i] + change)
         else:
             positions[i+1] = positions[i] + change
-        
+
     return positions
 
 
@@ -46,20 +46,20 @@ endPositons   = np.zeros(numberOfWalks)
 
 # Make each random walk take a random number of steps
 # Is they are set to the same value, that number of steps will be taken
-# by all random walks. 
-# If yu want to see walks in the range between 50 and a 100, set  
+# by all random walks.
+# If yu want to see walks in the range between 50 and a 100, set
 #
-# minStep = 50 
-# maxStep = 100 
+# minStep = 50
+# maxStep = 100
 #
 # NOTE: if you use a large range here, then you will need MANY more walks (line 30)
-# A recommendation is [2,15] 
+# A recommendation is [2,15]
 minStep = 10 # minimum number of steps
 maxStep = 100 # maximum number of steps
 
 
 f1 = plt.figure(figsize=(15,15))
- 
+
 ax1 = f1.add_subplot(221, title='Plot of walks (maximum 300 walks)')
 for i in np.arange(numberOfWalks):
     stepsThisWalk = np.random.randint(minStep,maxStep+1)
