@@ -1,6 +1,6 @@
 #!/usr/bin/python
-#import matplotlib
-#matplotlib.use("Qt4Agg")
+import matplotlib
+matplotlib.use("Qt4Agg")
 
 #import handy python modules
 import numpy as np
