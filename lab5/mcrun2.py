@@ -184,15 +184,19 @@ def updateNewChain(i):
             if(Tscore>score):
                 chain = Tchain
                 score = Tscore
+                if args.enefile != None:
+                    eneFile.write(str(Tscore) + "\n")
             elif(np.random.rand()<np.exp(-np.abs(Tscore-score))):
                 chain = Tchain
                 score = Tscore
+                if args.enefile != None:
+                    eneFile.write(str(Tscore) + "\n")
         else:
             chain = Tchain
             score = Tscore
 
-        if args.enefile != None:
-            eneFile.write(str(Tscore) + "\n")
+            if args.enefile != None:
+                eneFile.write(str(Tscore) + "\n")
 
         best = Tscore>bestScore
 
