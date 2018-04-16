@@ -1,0 +1,27 @@
+REMARK  3 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C1_1  and  C7_11 
+REMARK    2  A    between atoms: N1_2  and  C8_12 
+REMARK    3  A    between atoms: C7_11  and  C8_12 
+ROOT
+HETATM    1  C1  ALE A1402      -6.249   2.250 -41.467  1.00 82.90     0.012 A 
+HETATM    2  O1  ALE A1402      -2.992   1.321 -42.865  1.00 91.95    -0.188 OA
+HETATM    3  C2  ALE A1402      -5.279   1.939 -42.416  1.00 92.28     0.028 A 
+HETATM    4  O2  ALE A1402      -2.388   1.321 -40.319  1.00 89.58    -0.188 OA
+HETATM    5  C3  ALE A1402      -3.991   1.633 -41.996  1.00 95.92     0.156 A 
+HETATM    6  C4  ALE A1402      -3.671   1.633 -40.646  1.00 92.28     0.156 A 
+HETATM    7  C5  ALE A1402      -4.634   1.941 -39.693  1.00 86.87     0.029 A 
+HETATM    8  C6  ALE A1402      -5.925   2.249 -40.112  1.00 82.92     0.001 A 
+ENDROOT
+BRANCH   1   9
+HETATM    9  C7  ALE A1402      -7.542   2.559 -41.880  1.00 82.45     0.211 C 
+HETATM   10  O3  ALE A1402      -8.429   2.580 -40.758  1.00 73.05    -0.216 OA
+BRANCH   9  11
+HETATM   11  C8  ALE A1402      -7.554   3.923 -42.572  1.00 96.53     0.327 C 
+BRANCH  11  12
+HETATM   12  N1  ALE A1402      -8.909   4.271 -43.023  1.00102.87     0.344 N 
+HETATM   13  C9  ALE A1402      -8.885   5.582 -43.686  1.00107.66     0.328 C 
+ENDBRANCH  11  12
+ENDBRANCH   9  11
+ENDBRANCH   1   9
+TORSDOF 3
