@@ -1,0 +1,17 @@
+#!/bin/bash -l
+
+#SBATCH --job-name="KB7013_exercise"
+#SBATCH --reservation=KB7013
+#SBATCH -C cpu
+#SBATCH -N 1
+#SBATCH -n 7 
+#SBATCH -t 01:05:00
+
+nsteps=20000
+omps=8
+maxh=1 #Run no more than half an hour
+
+export OMP_NUM_THREADS=$omps
+
+module load openmpi/1.10.6 gromacs
+srun gmx_mpi mdrun -pin on -quiet -nsteps $nsteps -s topol.tpr -ntomp $omps -maxh $maxh
